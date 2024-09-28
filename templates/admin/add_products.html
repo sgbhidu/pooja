@@ -1,0 +1,42 @@
+{% extends 'addons/sidenav.html'%}
+        
+{% block mymessage %}
+      <div class="main"> 
+           <h1 style="text-align:center">ADD PRODUCTS</h1>
+           <table style="margin-left:5%;">
+    <form method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+      <tr>
+        <td><label for="name"> Name</label></td>
+        <td><input type="text" name="name" id="name" required ></td> <br></tr>
+
+        <tr>
+        <td><label for="size"> Size </label></td>
+        <td><input type="text" name="size" id="name" required ></td> <br></tr>
+        <tr>
+          <td><label for="description"> Description</label></td>
+            <td><textarea name="description" id="name" required > </textarea></td> <br></tr>
+        <tr>
+          <td><label for="colour"> Colour </label></td>
+            <td><input type="text" name="colour" id="name" required ></td> <br></tr>
+        <tr>
+          <td><label for="quantity"> Quantity</label></td>
+            <td><input type="number" name="quantity" id="name"  required> </td><br></tr>
+            <tr>
+              <td><label for="price"> Price</label></td>
+                <td><input type="number" name="price" id="name"  required> </td><br></tr>
+        <tr>
+          <td><label for="photo"> Photo</label></td>
+            <td><input type="file" name="photo" id="name"  required></td> <br>
+      </tr>
+      <tr>
+        <td><button type="submit">ADD</button></td>
+      </tr>
+      
+        
+        
+        
+    </form>
+  </table>
+</div>
+{% endblock %}  

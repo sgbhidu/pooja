@@ -1,0 +1,29 @@
+{% extends 'addons/sidenav.html'%}
+        
+{% block mymessage %}
+      <div class="main"> 
+           <h1 style="text-align:center">Add Ceremonies</h1>
+           <table style="margin-left:5%;">
+    <form method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+      <tr>
+        <td><label for="city"> City</label></td>
+        <td><input type="text" name="city" id="name"  required></td> <br></tr>
+
+        
+        <tr>
+          <td><label for="pincode"> PinCode</label></td>
+            <td><input type="number" name="pincode" id="name" required > </td> <br></tr>
+        
+
+      <tr>
+        <td><button type="submit">ADD</button></td>
+      </tr>
+      
+        
+        
+        
+    </form>
+  </table>
+</div>
+{% endblock %}  

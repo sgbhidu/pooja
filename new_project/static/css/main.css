@@ -1,0 +1,30 @@
+label{
+    color:#02096b;
+    font-size: 20px;
+    font-weight:bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+input{
+    background:#FFFFFF;
+    padding: 10px 12px 10px 10px;
+    font-style:arial;
+    width: 100%;
+    border-radius: 5px;
+    border:none;
+    box-shadow: 0 0 5pt 2pt #D3D3D3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+button {
+background-color: #02096b;
+color: white;
+border-radius:5px;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 100%;
+}
+
+
+

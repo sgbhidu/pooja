@@ -1,0 +1,116 @@
+
+{% extends 'addons/sidenav.html'%}
+{% load static %}
+
+{% block extra_head %}
+<style>
+  label{
+    color:white;
+  }
+  
+  .inp{
+
+    border:2px solid white;
+    padding:3px;
+    background-color: transparent;
+    text-align: center;
+    height:auto;
+    width:200px;
+    margin-left:50px;
+    color:white;
+  }
+  .inp:hover{
+    color:black;
+    background-color: white;
+
+  }
+  .main{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+  }
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  background-color: azure;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 22px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+body{
+  background-image: url("{% static 'bgr.jpg' %}");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: fixed;
+  
+  
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+
+{% block mymessage %}
+    
+      <div class="main">
+        <div>
+        <h2 style="text-align:center;margin:auto;max-width:300px; color:whitesmoke;padding:5px;background-color: black; border:2px solid black; ">MY PROFILE</h2>
+      </div>
+        <div class="card">
+          
+
+          <img src="{% static 'userbg.png' %}" alt="John" style="width:100%">
+          <h1 style="text-transform:capitalize;">{{user.name}}</h1>
+          <p class="title">{{user.email}}</p>
+          
+          <div style="margin: 24px 0;">
+             
+          </div>
+          <p style="color:white;"><button>{{user.phone}}</button></p>
+        </div>
+
+          
+
+
+    <form style="margin:2%" method="post">
+        {% csrf_token %}
+        <label for="name"> Name </label>
+        <input class="inp" type="text" name="name" id="name"  value="{{user.name}}" required > <br>
+        <label for="email">Email </label>
+        <input type="text" class="inp" name="email" id="email" value="{{user.email}}" required > <br>
+        <label for="phone">Phone </label>
+        <input type="number"  class="inp" name="phone" id="phone" value="{{user.phone}}" required > <br>
+        
+        <button type="submit" style="background-color:black;color:white; width:fit-content;">UPDATE</button>
+        
+        
+    </form>
+</div>
+{% endblock %}  
+

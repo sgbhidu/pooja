@@ -1,0 +1,51 @@
+{% extends 'addons/customers/navigation.html'%}
+        
+{% block mymessage %}
+      <div class="main"> 
+           
+           <table style="margin-left:5%;">
+            <img src="{{yatra.photo.url}}">
+    <form method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+      <tr>
+        <td><label for="name"> Name</label></td>
+        <td><input type="text" name="name" id="name" value="{{yatra.name}}" disabled ></td> <br></tr>
+
+        
+        <tr>
+          <td><label for="description"> Description</label></td>
+            <td><textarea name="description" id="name"  disabled> {{yatra.description}}</textarea></td> <br></tr>
+        <tr>
+              <td><label for="price"> Price</label></td>
+                <td><input type="number" name="price" id="name" value="{{yatra.price}}" disabled> </td><br></tr>
+        
+      <tr>
+        <td><label for="start"> Start time</label></td>
+          <td><input type="datetime-local" name="start" id="name" value="{{yatra.start_date}}" disabled >{{yatra.start_date}}</td> <br>
+    </tr>
+    <tr>
+        <td><label for="end"> End time</label></td>
+          <td><input type="datetime-local" name="end" id="name" value="{{yatra.end_date}}" disabled >{{yatra.end_date}}</td> <br>
+    </tr>
+      <tr>
+        <td><label for="locations"> Locations covered</label></td>
+          <td><select name="locations" id="name" multiple disabled  >
+            {% for location in yatra.locations_covered.all %}
+            <option value="{{location.id}}" selected>{{location.city}}</option>
+            {% endfor %}
+            
+          </td> 
+          
+    </tr>
+
+      <tr>
+        <td><button type="submit">Proceed to pay</button></td>
+      </tr>
+      
+        
+        
+        
+    </form>
+  </table>
+</div>
+{% endblock %}  

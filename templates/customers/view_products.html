@@ -1,0 +1,373 @@
+{% extends 'addons/customers/navigation.html'%}
+
+{% block extra_head %}
+<style>
+  body{
+
+    font-family: 'Times New Roman', Times, serif;
+    
+  }
+
+
+.card-body{
+  background-color:white;
+}
+  .card-text{
+    
+    height:20px;
+  }
+  .results_tile{
+    font-size:25px;
+    padding: 10px;
+    display:block;
+    width:max-content;
+    border-bottom:1px solid gray;
+
+  }
+
+  img.result_items{
+    height:40px;
+    width:40px;
+    
+
+  }
+  .results_box{
+
+    margin-top:45px; 
+     position:fixed;
+     right:0;
+     margin-right:250px;
+     background-color:white;
+    border-radius:-50px;
+    width:max-content; 
+    height:max-content;
+    display:none;
+    box-shadow: 0px 3px 8px rgb(100,100,100);
+  }
+
+  .results_box a{
+
+text-decoration:none;
+ color:inherit; 
+ background:inherit; 
+ border:none;
+ 
+ 
+ text-transform:capitalize;
+
+  }
+  .results_box a:hover{
+
+text-decoration:none;
+ color:inherit; 
+ background:inherit; 
+ border:none;
+ text-transform:capitalize;
+
+  }
+  * {
+  box-sizing: border-box;
+}
+
+
+.results_tile{
+  align:center;
+  padding:10px;
+  width:100%;
+
+}
+
+.example input[type=text] {
+  padding: 10px;
+  padding-left:40px;
+  font-size: 21px;
+  margin-top:7px;
+  height:40px;
+  border: 1px solid grey;
+  border-radius: 30px 0 0 30px;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  
+  width: 20%;
+  margin-top:7px;
+  height:40px;
+  padding: 4px;
+  background: #f1f1f1;
+  color: #818181;
+  border-radius: 0 30px 30px 0;
+  text-align:center;
+  font-size: 21px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #f2f2f2;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.checked {
+  color: orange;
+}
+
+.sidebar{
+display:inline-block; 
+position:fixed; 
+z-index:1 ;
+top:auto;
+left:0;
+overflow-y:scroll;
+padding:10px;
+padding-left:20px;
+width:20%;
+height:93%;
+vertical-align:top;
+
+background-color:#222222;
+color:white ;
+background-repeat:no-repeat;
+background-size:cover ;
+border:2px solid black;
+font-family:Lucida Bright;
+text-transform:capitalize;
+
+}
+#colours{
+
+  border-bottom:2px solid white;
+}
+.options{
+  position:relative;
+  display:none;
+  
+}
+.btnn{
+  box-shadow: 0px 3px 8px rgb(100,100,100);
+   border:2px solid white ;
+   border-radius:10px;
+  height:40px; 
+  padding:10px; 
+  width:max-content;
+   background-color:#DAA521;
+
+}
+.caret{
+  font-size:100px;
+}
+.filter_box{
+  
+  border_bottom:2px solid red;
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.sidebar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+ if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+}
+
+function showVal(){
+    var range=document.getElementById("range_val").value;
+    document.getElementById("max_val").innerHTML="Max: "+range;
+    console.log(range);
+}
+
+
+
+function toggle(option_id){
+  
+  var ss="#"+option_id;
+  if($(ss).css("display")==="none"){
+    $(ss).slideDown(500);
+    }
+    else{
+      $(ss).slideUp(500);
+    }
+}
+
+function check()
+{
+   // alert("this is working")
+  var search_data=document.getElementById("search").value;
+var result=document.getElementById("results");
+ //  var formdata={
+
+  // };
+//formdata["username"]=document.getElementById("username").value;
+//formdata["password"]=document.getElementById("password").value;
+//alert(JSON.stringify(formdata));
+if (search_data){
+  document.getElementById("search_button").disabled=false;
+var obj= new XMLHttpRequest();
+var url="/api/description/?search="+search_data;
+
+ obj.open("GET",url,true);
+ obj.setRequestHeader("Content-type","application/json");
+ obj.send();
+
+obj.onload = () => {
+
+var a=JSON.parse(obj.responseText);
+//console.log(a);
+if(a.length>0){
+  
+ // result.style.display="block";
+  
+}
+else{
+result.style.display="none";
+}
+var b=" "
+for(var i=0;i<a.length;i++){
+  if(parseInt(a[i].price)>0){
+    //console.log(a[i].id);
+    var prod_slg=a[i].slug;
+    var url='/customer/view_gift_details/'+prod_slg.toString();
+    console.log(url);
+b+= "<a href="+url+" class='btn btn-primary'><div class='results_tile'><img class='result_items' src=" + a[i].photo+ ">" +a[i].product.name+" ("+a[i].color+")</div></a><br>";
+console.log(b);
+}
+}
+result.innerHTML="";
+result.innerHTML= b;
+$(".results_box").slideDown(500);
+}
+}
+else
+{
+  $(".results_box").slideUp(500);
+  result.innerHTML="";
+  document.getElementById("search_button").disabled=true;
+ // window.location.assign('/customer/view_products');
+ // document.search_bar.submit();
+}
+}
+function search() {
+  document.search_bar.submit();
+  return true;
+}
+</script>
+
+
+{% endblock %}
+
+
+{% block mymessage %}        
+<div style="position:fixed; top:0; right:0; z-index:100;">
+  <form name="search_bar" class="example" style="float:right;max-width:300px; margin-right:300px;">
+  
+  <input  type="text" autocomplete="off" placeholder="Search..." onkeyup="check()" id="search" name="search" value="{{key}}" />
+  <button id="search_button" type="submit"><i class="fa fa-search" style="color:#223b05;" aria-hidden="true"></i></button>
+   </form>
+  <div id="results" class="results_box">
+  
+  </div>
+ <br>
+ </div>
+ <div style="margin-top:45px;  position:relative;">
+    <div class="sidebar">
+      <h1 style="margin-left:20px;"> Filters <i class="fa fa-filter" style="font-size:26px"></i></h1>
+ 
+      <form method="post" id="filter_form">
+        {% csrf_token %}
+            <div class="filter_box">
+              <h3> Color <span class="caret" onclick="toggle('colors')"></span> </h3> 
+              <div class="options" id="colors">
+                  {% for color in colors %}
+                  {% if ticked_colours.color %}
+                      <div>
+                          <input type="checkbox" id="{{color}}"  name="colour" style="position:relative;" min="0" max="10000" value="{{color}}" checked>
+                          <label for="{{color}}"> {{color}} </label>
+                      </div>
+                      {% else %}
+                      <div>
+                          <input type="checkbox" id="{{color}}"  name="colour" style="position:relative;" min="0" max="10000" value="{{color}}">
+                          <label for="{{color}}"> {{color}} </label>
+                      </div>
+                      {% endif %}
+                  {% endfor %}
+              </div>
+            </div>
+            <div class="filter_box">
+              <h3> Price <span class="caret" onclick="toggle('price')"></span></h3>
+              <div class="options" id="price">
+                <div>
+                  <input type="range" name="range" id="range_val" min="0" max="1000" value="50" step="5" oninput="showVal()" onchange="showVal()">
+                  <span id="min_val">min : 0 </span>    <span id="max_val"  style="float:right">Max: 50   </span>
+                </div>
+              </div>
+            </div>
+            <div class="filter_box">
+              <h3> Products <span class="caret" onclick="toggle('products')"></span></h3>
+              <div class="options" id="products">
+              {% for name in product_names %}
+                <div>
+                  <input type="checkbox" id="{{name}}"  name="product" style="position:relative;" value="{{name}}">
+                  <label for="{{name}}"> {{name}} </label>
+                  </div>
+              {% endfor %}
+              </div>
+            </div>
+            <button type="submit" class="btnn">Apply </button>
+      </form>
+
+ 
+ </div>
+    <div class="mybox" style=" vertical-align:top ;display:inline-block ;position:relative; width:75%">
+        {% for prod in products %}
+
+        <div style=" width:100%; margin-top:5px; border-bottom:2px solid #384e1d; margin-left:30%; background-color: white; ">
+          <div style="display:inline-block;">
+           {% if prod.product.photo %}<img style="height:250px;display:inline-block; vertical-align:middle;padding:10px ;width:300px;border-radius:10px 10px 10px 10px;" src="{{ prod.product.photo.url }}" alt="Card image cap">{% endif %} 
+          </div>
+          <div style="color:#223b05; position:relative; padding:10px; display:inline-block; vertical-align:top;">
+              <h3 style="text-transform:capitalize;"><b>{{ prod.product.product.name }} </b> ({{ prod.product.color }})</h3>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <p>({{prod.ratings}})</p>
+              <br>
+              <p ><b><i class="fa fa-rupee" style="font-size:22px"> {{ prod.product.price }}</i></b></p><br> 
+              <button class="btnn">  <a style="color:white; text-decoration:none;" href="/customer/view_gift_details/{{prod.product.slug}}"  > View </a></button>
+              <form method="post" action="/customer/view_gift_details/{{prod.product.slug}}" style="display:inline-block;">
+              {% csrf_token %}
+              <button class="btnn">  <a style="color:white; text-decoration:none;"   > Add to cart </a></button>
+              <input name="quantity" value="1" hidden/>
+             </form>
+          </div>
+        </div>
+          {% endfor %}
+        
+          
+          
+</div>
+
+  </div>      
+
+{% endblock %}
+

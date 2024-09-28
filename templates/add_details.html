@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head>
+    Edit profile
+</head>
+<title>
+    Add details
+</title>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <input type="number" name="phone" id="phone" placeholder="Phone" required> <br>
+        <input type="number" name="alternatephone" id="altphone" placeholder="Alternative Phone" required> <br>
+        <input type="date" name="anniversary" id="anniversary" placeholder="anniversary" required><br>
+        <input type="date" name="dob" id="dob" placeholder="dob" required><br>
+        
+        <h3> Permanent Address</h3><br>
+        <input type="text" name="perm_address" id="perm_address" placeholder="Address">
+        <input type="text" name="perm_landmark" id="perm_landmark" placeholder="Landmark"> <br>
+        <input type="number" name="perm_pincode" id="perm_pincode" placeholder="pincode">
+        <input type="text" name="perm_City" id="perm_City" placeholder="City"><br>
+        <input type="text" name="perm_State" id="perm_State" placeholder="State">
+        <input type="text" name="perm_Country" id="perm_Country" placeholder="Country"> <br>
+
+        <h3> Delivery Address</h3><br>
+        <input type="text" name="delivery_address" id="delivery_address" placeholder="Address">
+        <input type="text" name="delivery_landmark" id="delivery_landmark" placeholder="Landmark"> <br>
+        <input type="number" name="delivery_pincode" id="delivery_pincode" placeholder="pincode">
+        <input type="text" name="delivery_City" id="delivery_City" placeholder="City"><br>
+        <input type="text" name="delivery_State" id="delivery_State" placeholder="State">
+        <input type="text" name="delivery_Country" id="delivery_Country" placeholder="Country"> <br>
+
+        <button type="submit">Update</button>
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'addons/customers/navigation.html'%}
+
+{% block extra_head %}
+<style>
+  body{
+
+    font-family: 'Times New Roman', Times, serif;
+  }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+
+
+{% block mymessage %}     
+ <div style="position:relative; top:auto;">   
+
+  
+    
+        {% for prod in products %}
+        <div class="card" style="height:35rem; width: 22rem; display:inline-block; padding:10px; margin:20px; border:2px solid black; border-radius: 10px;">
+           <img style="height:100%; width:100%"class="card-img-top" src="{{ prod.photo.url }}" alt="Card image cap">
+            <div class="card-body">
+              <h3 class="card-title" style="text-transform:capitalize;"><b>{{ prod.product.name }} ({{ prod.color }})</b></h3>
+              <p class="card-text">{{ prod.product.description }}</p>
+              <p class="card-text"><b><i class="fa fa-rupee" style="font-size:24px"> {{ prod.price }}</i></b></p>
+             
+              <a href="/customer/request_gift/{{prod.id}}" class="btn btn-primary">Request</a>
+            </div>
+          </div>
+          {% endfor %}
+</div>
+
+{% endblock %}

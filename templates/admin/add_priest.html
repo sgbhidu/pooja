@@ -1,0 +1,36 @@
+{% extends 'addons/sidenav.html'%}
+
+
+{% block extra_head %}
+<style>
+  body {
+font-family: "Lato", sans-serif;
+}
+</style>
+{% endblock %}
+
+
+{% block mymessage %}
+    
+
+      <div class="main">
+    <h1 style="text-align:center;">Add Priest</h1>
+    <form style="margin:2%" method="post">
+        {% csrf_token %}
+        <label for="name"> Name
+        <input type="text" name="name" id="name" required ></label> <br>
+        <label for="age">age
+        <input type="number" name="age" id="age" required > </label><br>
+        <label for="phone">Phone
+        <input type="number" name="phone" id="phone" required></label> <br>
+        
+        <label for="address">Address
+            <textarea name="address" id="address" required ></textarea></label> <br>
+        
+        <button type="submit">ADD</button>
+        
+        
+    </form>
+</div>
+{% endblock %}  
+

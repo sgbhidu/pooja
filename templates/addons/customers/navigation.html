@@ -1,0 +1,128 @@
+<!DOCTYPE html lang='en'>
+{% load static %}
+<head>
+
+
+
+    <style>
+        body {
+  font-family: "Lato", sans-serif;
+  
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: fixed;
+  
+}
+
+
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.dropdown-toggle{
+  color:white;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+
+.main {
+  margin-left: 0px; /* Same as the width of the sidenav */
+  top:0;
+  z-index:100;
+  width:100%;
+  position:fixed;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+    </style>
+
+<title>{% block title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+   
+      <div class="main">
+        <nav class="navbar navbar-inverse" style="box-shadow: 0px 3px 8px rgb(100,100,100); z-index:100;" >
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" style="color:white; border:2px solid white;" href="#">POOJA</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="/customer/home">Home</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Store <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/customer/view_products">Products</a></li>
+                    <li><a href="/customer/view_gifts">Gifts</a></li>
+                    <li><a href="/customer/view_ceremonies">Ceremonies</a></li>
+                    <li><a href="/customer/view_yatras">Yatras</a></li>
+                    
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Requests <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/customer/view_products">Pickup requests</a></li>
+                      <li><a href="/customer/view_gift_requests">Gift requests</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cart <i class="fa fa-shopping-cart" style="font-size:auto;"></i><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/customer/view_products_cart">Products cart</a></li>
+                      <li><a href="">Gifts cart</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Bookings<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/customer/view_ceremony_bookings">Ceremony</a></li>
+                      <li><a href="/customer/view_yatra_bookings">Yatras</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li class="active"><a href="/customer/all_orders/">Orders</a></li>
+                  <li class="dropdown"><a href="/logout"><i class="fa fa-sign-out" style="font-size:inherit;color:white">Logout</i></a></li>
+
+              </ul>
+             
+
+            </div>
+          </nav>
+          </div>
+      {% block mymessage %}
+{% endblock %}
+
+</body>
+</html>

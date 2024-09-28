@@ -1,0 +1,355 @@
+{% extends 'addons/customers/navigation.html'%}
+
+{% block extra_head %}
+<style>
+.picZoomer{
+	
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  
+}
+.picZoomer-pic-wp{
+	position: relative;
+	overflow: hidden;
+    text-align: center;
+}
+.picZoomer-pic-wp:hover .picZoomer-cursor{
+	display: block;
+}
+.picZoomer-zoom-pic{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.picZoomer-pic{
+	width: 100%;
+	height: 100%;
+}
+.picZoomer-zoom-wp{
+	display: none;
+	position: absolute;
+	z-index: 999;
+	overflow: hidden;
+    border:1px solid #eee;
+    height: 460px;
+    margin-top: -19px;
+}
+.picZoomer-cursor{
+	display: none;
+	cursor: crosshair;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 50%;
+	border: 1px solid #eee;
+	background-color: rgba(0,0,0,.1);
+}
+.picZoomCursor-ico{
+	width: 23px;
+	height: 23px;
+	position: absolute;
+	top: 40px;
+	left: 40px;
+	background: url(images/zoom-ico.png) left top no-repeat;
+}
+
+.my_img {
+   <!-- vertical-align: middle; -->
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    
+    
+
+}
+.piclist li{
+    display: inline-block;
+    width: 90px;
+    height: 114px;
+    border: 1px solid #eee;
+}
+.piclist li img{
+    width: 97%;
+    height: auto;
+}
+
+/* custom style */
+.picZoomer-pic-wp,
+.picZoomer-zoom-wp{
+    border: 1px solid #eee;
+}
+
+
+
+.section-bg {
+    background-color: #ffffff;
+}
+section {
+    padding: 70px 0;
+}
+.row-sm .col-md-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/*===pic-Zoom===*/
+._boxzoom .zoom-thumb {
+    width: 90px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 0px;
+}
+._boxzoom .zoom-thumb ul.piclist {
+    padding-left: 0px;
+    top: 0px;
+}
+._boxzoom ._product-images {
+    width: 100%;
+    display: inline-block;
+}
+._boxzoom ._product-images .picZoomer {
+    width: 100%;
+}
+._boxzoom ._product-images .picZoomer .picZoomer-pic-wp img {
+    left: 0px;
+}
+._boxzoom ._product-images .picZoomer img.my_img {
+    width: 100%;
+}
+.piclist li img {
+    height:100px;
+    object-fit:cover;
+}
+
+/*======products-details=====*/
+._product-detail-content {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid lightgray;
+}
+._product-detail-content p._p-name {
+    color: black;
+    font-size: 20px;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 12px;
+}
+.p-list span {
+    margin-right: 15px;
+}
+.p-list span.price {
+    font-size: 25px;
+    color: #318234;
+}
+._p-qty > span {
+    color: black;
+    margin-right: 15px;
+    font-weight: 500;
+}
+._p-qty .value-button {
+    display: inline-flex;
+    border: 0px solid #ddd;
+    margin: 0px;
+    width: 30px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    background: #fd7f34;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #fff;
+}
+
+._p-qty .value-button {
+    border: 0px solid #fe0000;
+    height: 35px;
+    font-size: 20px;
+    font-weight: bold;
+}
+._p-qty input#number {
+    text-align: center;
+    border: none;
+    border-top: 1px solid #fe0000;
+    border-bottom: 1px solid #fe0000;
+    margin: 0px;
+    width: 50px;
+    height: 35px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+._p-add-cart {
+    margin-left: 0px;
+    margin-bottom: 15px;
+}
+.p-list {
+    margin-bottom: 10px;
+}
+._p-features > span {
+    display: block;
+    font-size: 16px;
+    color: #000;
+    font-weight: 500;
+}
+._p-add-cart .buy-btn {
+    background-color: #fd7f34;
+    color: #fff;
+}
+._p-add-cart .btn {
+    text-transform: capitalize;
+    padding: 6px 20px;
+    /* width: 200px; */
+    border-radius: 52px;
+}
+._p-add-cart .btn {
+    margin: 0px 8px;
+}
+
+
+._p-qty .decrease_ {
+    position: relative;
+    right: -5px;
+    top: 3px;
+}
+
+._p-qty .increase_ {
+    position: relative;
+    top: 3px;
+    left: -5px;
+}
+.dot {
+  height: 45px;
+  width: 45px;
+  background-color: gray;
+  border-radius: 50%;
+  display: inline-block;
+  text-align:center;
+  
+  
+}
+a:link {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+
+<script language="JavaScript" type="text/javascript">
+function update(){
+    var a=parseInt(document.getElementById("number").value);
+    var price=parseInt(document.getElementById("price").value);
+    document.getElementById("qty").value=a;
+    document.getElementById("total_amt").value= a*price;
+}
+function decrease(){
+
+var a=document.getElementById("number");
+if(a.value!=0){
+    a.value=parseInt(a.value)-1;
+}
+}
+function increase(){
+
+var a=document.getElementById("number");
+
+    a.value=parseInt(a.value)+1;
+
+}
+</script>
+
+{% endblock %}
+{% block mymessage %}  
+<section id="services" class="services section-bg">
+   <div class="container-fluid">
+     
+      <div class="row row-sm">
+         <div class="col-md-4 _boxzoom">
+            <!--<div class="zoom-thumb">
+               <ul class="piclist">
+                  <li><img src="https://s.fotorama.io/1.jpg" alt=""></li>
+                  <li><img src="https://s.fotorama.io/2.jpg" alt=""></li>
+                  <li><img src="https://s.fotorama.io/3.jpg" alt=""></li>
+                  <li><img src="https://ucarecdn.com/382a5139-6712-4418-b25e-cc8ba69ab07f/-/stretch/off/-/resize/760x/" alt=""></li>
+               </ul>
+            </div>-->
+            <div class="_product-images">
+               <div class="picZoomer" style="margin-left:auto; margin-right:auto;">
+                  <img class="my_img" src="{{gift.photo.url}}" alt="" style="height:35rem; width: 22rem; display:inline-block;margin-left:auto; margin-right:auto; ">
+               </div>
+            </div>
+         </div>
+         <div class="col-md-8">
+            <div class="_product-detail-content">
+               <p class="_p-name" style="text-transform:capitalize;"> {{gift.product.name}} ({{gift.color}}) </p>
+               <div class="_p-price-box">
+                  <div class="p-list">
+                     <span> M.R.P. : <i class="fa fa-inr"></i> <del> 1399  </del>   </span>
+                     <span class="price"> Rs. {{ gift.price}} </span>
+                  </div>
+                  
+                  <div class="_p-features">
+                     <span> Description About this product:- </span>
+                     {{gift.product.description}}                       
+                  </div>
+                  <div>
+                     <h1>Colors</h1>
+                     {% for variant in variants %}
+                        <a href="/customer/view_gift_details/{{variant.slug}}" style="text-decoration:none;"><span class="dot" style="background-color:{{variant.color}}"></span></a>
+                        {% endfor %}
+                        
+                    </div>
+                    <form method="post" accept-charset="utf-8">
+                    {% csrf_token %}
+                    <div class="_p-add-cart">
+                     <div class="_p-qty">
+                     
+                        <span>Add Quantity</span>
+                        <div class="value-button decrease_" id="decrease" onclick="decrease()" value="Decrease Value">-</div>
+                        <input type="number" name="quantity" id="number" value=1 onchange="update()" />
+                        <div class="value-button increase_" id="increase" onclick="increase()" value="Increase Value">+</div>
+                     
+                     </div>
+                  </div>
+                  
+                  
+                     <ul class="spe_ul"></ul>
+                     <div class="_p-qty-and-cart">
+                        <div class="_p-add-cart">
+                        
+                        <input type="number" name="prod_id" style="display:none;" value="{{gift.id}}"  />
+                           <input type="number" name="prod_price" style="display:none;" id="price" value="{{gift.price}}" />
+                           <input type="number" name="prod_quantity" style="display:none;" id="qty" value="1" />
+                           <input type="number" name="total_amount" style="display:none;" id="total_amt" value="{{gift.price}}"/>
+                           <button type="submit" class="btn-theme btn buy-btn" tabindex="0" formaction="/customer/product_checkout">
+                           <i class="fa fa-shopping-cart" ></i> Buy Now
+                           </button>
+                           
+                           <button class="btn-theme btn btn-success"  tabindex="0"  type="submit">
+                           <i class="fa fa-shopping-cart"></i> Add to Cart
+                           </button>
+                           <input type="hidden" name="pid" value="18" />
+                           <input type="hidden" name="price" value="850" />
+                           <input type="hidden" name="url" value="" />    
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+{% endblock%}

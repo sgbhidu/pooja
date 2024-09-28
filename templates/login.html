@@ -1,0 +1,72 @@
+
+<script type="text/javascript">
+
+function check()
+{
+   // alert("this is working")
+   var formdata={
+
+   };
+formdata["username"]=document.getElementById("username").value;
+formdata["password"]=document.getElementById("password").value;
+//alert(JSON.stringify(formdata));
+
+ var obj= new XMLHttpRequest();
+
+ obj.open("POST","/api/login/",true);
+ obj.setRequestHeader("Content-type","application/json");
+ obj.send(JSON.stringify(formdata));
+
+obj.onload = () => {
+
+var a=JSON.parse(obj.responseText);
+alert(a['user_type']);
+}
+}
+</script>
+
+
+{% load static %}
+
+{% include 'header.html' %}
+<!-- {% load static %} -->
+
+
+
+    <div class="container">
+        <div class="row mt-8">
+            <div class="col">
+                <h1 style="text-align:center; color:white"> Login </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <!-- <img src="{% static 'formless-god.jpg' %}" alt="Respicite Login Page Image"> -->
+            </div>
+            <div class='col-lg-6 col-sm-12'>
+                <form method="post">
+                    {% csrf_token %}
+                    <h1 class="'form-control login-form-elements">Login</h1>
+                    <input class="form-control login-form-elements" id="username" type="email" name="email" id="email" placeholder="Please Enter Your Email Id" required>
+                    <input class="form-control login-form-elements" id="password" type="password" name="pwd" id="pwd" placeholder="Please enter your Password" required>
+                   <button type="submit" class="btn btn-primary login-form-elements" >Login</button>
+                </form>
+                 
+                    
+                <a href="/signup"><button class="btn btn-primary login-form-elements" >Sign Up</button></a>
+            </div>
+        </div>
+
+
+               
+
+
+        
+            
+
+
+
+            
+    </div>
+<!-- Footer -->
+{% include 'footer.html' %}

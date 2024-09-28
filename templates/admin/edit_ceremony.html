@@ -1,0 +1,50 @@
+{% extends 'addons/sidenav.html'%}
+        
+{% block mymessage %}
+      <div class="main"> 
+           <h1 style="text-align:center">Edit Ceremony</h1>
+           <table style="margin-left:5%;">
+
+            <img src="{{ceremony.photo.url}}" style="height:30%; width:30%;">
+    <form method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+      <tr>
+        <td><label for="name"> Name</label></td>
+        <td><input type="text" name="name" id="name" value="{{ceremony.name}}" required></td> <br></tr>
+
+        
+        <tr>
+          <td><label for="description"> Description</label></td>
+            <td><textarea name="description" id="name"  required>{{ceremony.description}} </textarea></td> <br></tr>
+        <tr>
+              <td><label for="price"> Price</label></td>
+                <td><input type="number" name="price" id="name" value="{{ceremony.price}}" required> </td><br></tr>
+        <tr>
+          <td><label for="photo"> Photo</label></td>
+            <td><input type="file" name="photo" id="name"  ></td> <br>
+      </tr>
+
+      <tr>
+        <td><label for="priest"> Priest</label></td>
+          <td><select name="priest" id="name" multiple  >
+            {% for priest in ceremony.available_priests.all %}
+            <option value="{{priest.id}}" selected>{{priest.name}}</option>
+            {% endfor %}
+            {% for priest in other_priests %}
+            <option value="{{priest.id}}" >{{priest.name}}</option>
+            {% endfor %}
+          </td> 
+          <td><a href="/adminn/add_priest">add priest</a></td><br>
+    </tr>
+
+      <tr>
+        <td><button type="submit">Update</button></td>
+      </tr>
+      
+        
+        
+        
+    </form>
+  </table>
+</div>
+{% endblock %}  

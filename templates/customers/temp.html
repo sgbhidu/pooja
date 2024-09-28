@@ -1,0 +1,114 @@
+{% extends 'addons/customers/navigation.html'%}
+
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+$(document).ready(function(){
+    update_total();}
+)
+
+function update_total()
+{
+
+var prod_price=document.getElementsByName("prod_price");
+var prod_quantity=document.getElementsByName("prod_quantity");
+var total_amount=0;
+for(i=0; i<prod_price.length;i++){
+  total_amount+=parseInt(prod_price[i].value) * parseInt(prod_quantity[i].value);
+}
+document.getElementById("total_amount").value=total_amount;
+var a=document.getElementById("proceed");
+a.innerHTML= "Proceed to pay RS. "+total_amount;
+}
+
+</script>
+
+{% endblock %}  
+    {% block mymessage %}
+    
+        
+        <section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+          
+        </div>
+        {% if cart_objs|length > 0 %}
+<form method="post" action="/customer/initiate_payment/cart_order">
+{% csrf_token %}
+<h1> SELECT ADDRESS </h1><br/>
+<input type="select"  name="address">
+{% for address in addresses %}
+
+<option value={{address}}>
+{% endfor %}
+  {% for obj in cart_objs %}
+        <div class="card rounded-3 mb-4">
+          <div class="card-body p-4">
+            <div class="row d-flex justify-content-between align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img style="height:120px; width:120px;"
+                  src="{{obj.product.photo.url}}"
+                  class="img-fluid rounded-3" alt="Cotton T-shirt">
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <p class="lead fw-normal mb-2">{{obj.product.product.name}}</p>
+                <p><span class="text-muted">Size: </span>{{obj.product.product.size}} <span class="text-muted">Color: </span>{{obj.product.color}}</p>
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                <button class="btn btn-link px-2"
+                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <input type="name" name="prod_id" value={{obj.product.id}} hidden>
+                <input id="form1" min="0"  onchange="update_total()" name="prod_quantity" min="1" value="{{obj.quantity}}" type="number"
+                  class="form-control form-control-sm" required />
+
+                <button class="btn btn-link px-2"
+                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+              <input type="number" name="prod_price" value={{obj.product.price}} hidden>
+                <h5 class="mb-0">RS.{{obj.product.price}}</h5>
+              </div>
+              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endfor %}
+        
+        <input class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" type="number" id="total_amount" name="total_amount" hidden />
+
+        <div class="card">
+          <div class="card-body">
+            <button type="submit" id="proceed" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
+          </div>
+        </div>
+        
+</form>
+
+{% else %}
+<h1> CART EMPTY </h1>
+<a href='/customer/view_products'> <h1>Continue Shoppping </h1></a>
+{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+        </div>
+  
+</body>
+        {% endblock %}
+    
+    

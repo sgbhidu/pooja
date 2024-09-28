@@ -1,0 +1,34 @@
+{% extends 'addons/sidenav.html'%}
+
+{% block extra_head %}
+<style>
+  body{
+
+    font-family: 'Times New Roman', Times, serif;
+  }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+
+
+{% block mymessage %}      <div class="main">    <h1 style="text-align:center; font-family:Georgia, 'Times New Roman', Times, serif;"><u> GIFT REQUESTS</u></h1>
+
+  
+    
+        {% for request in requests %}
+        <div class="card" style="width: 22rem; display:inline-block; padding:10px; margin:20px; border:2px solid black; border-radius: 10px;">
+           <a href="/adminn/edit_product/{{request.product_associated.id}}"><img style="height:fit-content; width:100%"class="card-img-top" src="{{ request.product_associated.photo.url }}" alt="Card image cap"></a>
+            <div class="card-body">
+              <h3 class="card-title" style="text-transform:capitalize;"><b>{{ request.product_associated.product.name }} ({{ request.product_associated.color }})</b></h3>
+              <p class="card-text"><b>Raised by  </b> -><i>{{ request.raised_by.name }}</i></p>
+              <p class="card-text"> {{ request.status }}</p>
+             <a style="text-decoration:none;" href="/adminn/accept_gift_request/{{request.id}}" class="btn btn-primary"> Accept</a>
+              <a href="/adminn/reject_gift_request/{{request.id}}" class="btn btn-primary">Reject</a>
+            </div>
+          </div>
+          {% endfor %}
+</div>
+
+{% endblock %}

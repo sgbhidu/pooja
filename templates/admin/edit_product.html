@@ -1,0 +1,35 @@
+{% extends 'addons/sidenav.html' %}
+      {% block mymessage %}
+      <div class="main">
+        <h2> Edit product</h2>
+        {% if prod.photo %}
+        <img src="{{prod.photo.url}}">
+        {% endif %}
+        <form method="post" enctype="multipart/form-data" style="margin:2%">
+            {% csrf_token %}
+            <br>
+            <label for="name"> Name
+            <input type="text" name="name" id="name" value="{{prod.product.name}}" required ></label> <br>
+            <label for="size"> Size
+            <input type="text" name="size" id="name" value="{{ prod.product.size}}"  required></label> <br>
+            <label for="description"> Description
+            <textarea name="description" id="name" value="{{ prod.product.description}}" required >{{prod.product.description}} </textarea></label> <br>
+            <label for="colour"> Colour
+            <input type="text" name="colour" id="name" value="{{ prod.color}}"  required></label> <br>
+            <label for="price"> Price
+              <input type="text" name="price" id="name" value="{{ prod.price}}"  required></label> <br>
+            <label for="quantity"> Quantity
+            <input type="number" name="quantity" id="name" value="{{ prod.quantity }}" required></label> <br>
+            <label for="photo"> Photo
+            <input type="file" name="photo" id="name"  ></label> <br>
+                
+            <button type="submit">EDIT</button>
+            
+            
+            
+            
+        </form>
+        </div>
+        {% endblock %}
+    
+    
